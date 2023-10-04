@@ -50,7 +50,8 @@
                             </div>
                         </div><!-- End Card with an image on top -->
                         @if($statut=="participant" && $participer[$i]==1)
-                            <a href="participerPronostic?id={{$tournois[$i]->idtournoi}}" type="button" class="btn btn-primary">Participer</a>
+                            <?php $erreur=" "; ?>
+                            <a href="participerPronostic/{{$tournois[$i]->idtournoi}}/{{$erreur}}/" type="button" class="btn btn-primary">Participer</a>
                         @endif
                     </div>
                 </div>

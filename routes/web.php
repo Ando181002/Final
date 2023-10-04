@@ -132,7 +132,7 @@ Route::GET('/AccueilUtilisateur', [UtilisateurController::class, 'Accueil']);
 Route::GET('UListeTournoi', [UtilisateurController::class, 'ListeTournoi']);
 Route::GET('UDetailTournoi', [UtilisateurController::class, 'DetailTournoi']);
 Route::GET('UPronostic', [UtilisateurController::class, 'Pronostic']);
-Route::GET('participerPronostic', [UtilisateurController::class, 'formulaireParticipation']);
+Route::GET('participerPronostic/{idtournoi}/{erreur}', [UtilisateurController::class, 'formulaireParticipation']);
 Route::POST('inscriptionProno', [UtilisateurController::class, 'inscription']);
 Route::GET('UDetailPronostic', [UtilisateurController::class, 'DetailPronostic']);
 Route::GET('Pronostiquer/{idtournoi}', [UtilisateurController::class, 'Pronostiquer']);

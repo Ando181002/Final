@@ -128,11 +128,11 @@ class UtilisateurController extends Controller
         $typetournoi=TypeTournoi::all();
         return view('Utilisateur.ListeTournoi',compact('tournois','statut','route','participer','typetournoi'));          
     }
-    public function formulaireParticipation(Request $req){
+    public function formulaireParticipation($idtournoi,$erreur){
         $statut="participant";
-        $tournoi=Tournoi::find($req['id']);
+        $tournoi=Tournoi::find($idtournoi);
         $equipes = DB::select('Select * from v_equipe_parTournoi');
-        return view('Utilisateur.Paiement',compact('statut','tournoi','equipes'));  
+        return view('Utilisateur.Paiement',compact('statut','tournoi','equipes','erreur'));  
     }
     public function inscription(Request $req){
         $idtournoi=$req['idtournoi'];
