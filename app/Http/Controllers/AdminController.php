@@ -347,32 +347,29 @@ class AdminController extends Controller
         $url = url('FicheTournoi', ['idtournoi' => $idtournoi]);
         return redirect($url); 
     } 
-    public function callCodeIgniterHistorique(Request $req)
+    public function callCodeIgniterHistorique()
     {
-        // Créez une instance de client Guzzle
-        $client = new Client();
+        // Spécifiez l'URL de l'API CodeIgniter et l'endpoint
+        $apiUrl = 'http://127.0.0.1/OrangeMoney/api/historique?numero=0324567890';
+        //$endpoint = '/endpoint';
 
-        // URL de l'API CodeIgniter et numéro à envoyer en tant que paramètre GET
-        $apiUrl = 'http://192.168.43.1/OrangeMoney/index.php/api/historique';
-        $numero = $req['numero'];
-
-        try {
-            // Effectuez une requête GET vers l'API CodeIgniter en incluant le numéro en tant que paramètre
-            $response = $client->request('GET', $apiUrl, [
-                'query' => ['numero' => $numero],
-            ]);
-
-            // Obtenez le contenu de la réponse (au format JSON)
-            $apiData = json_decode($response->getBody(), true);
-
-            // Faites quelque chose avec les données reçues de l'API
-            return response()->json($apiData);
-        } catch (Exception $e) {
+        // Effectuez une requête GET vers l'API CodeIgniter
+        $response = Http::get($apiUrl);
+        
+        // Vérifiez si la requête a réussi
+        if ($response->successful()) {
+            // Convertissez la réponse JSON en tableau associatif
+            $data = $response->json();
+            
+            // Traitez les données ici
+            return response()->json($data);
+        } else {
             // Gérez les erreurs ici
-            return response()->json(['error' => 'Une erreur s\'est produite lors de l\'appel de l\'API CodeIgniter.']);
+            $statusCode = $response->status();
+            return response()->json(['error' => 'Erreur lors de la requête vers l\'API CodeIgniter', 'status_code' => $statusCode], $statusCode);
         }
-    }
     
+    }   
 
     public function callCodeIgniterTransfert(Request $req)
     {
@@ -380,15 +377,15 @@ class AdminController extends Controller
         $client = new Client();
 
         // URL de l'API CodeIgniter pour la méthode "transfert"
-        $apiUrl = 'http://adresse-de-votre-api-codeigniter/index.php/api/transfert';
+        $apiUrl = 'http://127.0.0.1/OrangeMoney/api/transfert';
 
         // Données à envoyer à l'API pour la méthode "transfert"
         $data = [
-            'numenvoyeur' => $req['numenvoyeur'],
-            'numrecepteur' => $req['numrecepteur'],
-            'montant' => $req['montant'],
-            'objet' => $req['objet'],
-            'codesecret' => $req['codesecret'],
+            'numenvoyeur' => '0324567890',
+            'numrecepteur' => '0326789012',
+            'montant' => '2000',
+            'objet' => 'Transactions',
+            'codesecret' => '1234',
         ];
 
         try {

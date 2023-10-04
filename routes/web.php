@@ -158,4 +158,4 @@ Route::GET('testEquipe', [UtilisateurController::class, 'testEquipe']);
 
 
 
-Route::GET('testapi', [AdminController::class, 'callCodeIgniterHistorique']);
+Route::GET('testapi', [AdminController::class, 'callCodeIgniterTransfert']);
