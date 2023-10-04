@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 
+
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Adldap;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 use App\Models\PeriodeProno;

@@ -62,7 +62,7 @@
                     <h5 class="card-title text-center pb-0 fs-4">Veuillez vous connectez</h5>
                     <p class="text-center small">Entrez votre email et mot de passe</p>
                   </div>
-                  <p><a href="testapi">Test api</a></p>
+                  <p><a href="ldap">Test api</a></p>
                   <form class="row g-3 needs-validation" action="/loginAdmin" method="POST">
                     @csrf
                     <div class="col-12">
