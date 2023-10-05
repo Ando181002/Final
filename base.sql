@@ -287,15 +287,15 @@ create table Departement(
     idDepartement varchar(5) not null unique primary key,
     nomDepartement varchar not null unique
 );
-insert into Departement(idDepartement,nomDepartement) values ('DG','');
-insert into Departement(idDepartement,nomDepartement) values ('DRC','Direction Relation Client');
+insert into Departement(idDepartement,nomDepartement) values ('DG','Direction générale');
+insert into Departement(idDepartement,nomDepartement) values ('DRC','Direction Relation Clients');
 insert into Departement(idDepartement,nomDepartement) values ('DTI','Direction Technique et Informatique');
 insert into Departement(idDepartement,nomDepartement) values ('DMCC','Direction Marketing et Communication Commerciale');
-insert into Departement(idDepartement,nomDepartement) values ('SG','');
+insert into Departement(idDepartement,nomDepartement) values ('SG','Secrétariat Général');
 insert into Departement(idDepartement,nomDepartement) values ('OM','Orange Money');
-insert into Departement(idDepartement,nomDepartement) values ('DCE','');
-insert into Departement(idDepartement,nomDepartement) values ('DF','');
-insert into Departement(idDepartement,nomDepartement) values ('DCVD','');
+insert into Departement(idDepartement,nomDepartement) values ('DCE','Direction Commerciale Entreprise');
+insert into Departement(idDepartement,nomDepartement) values ('DF','Direction Financière');
+insert into Departement(idDepartement,nomDepartement) values ('DCVD','Direction Commerciale Vente Distribution');
 insert into Departement(idDepartement,nomDepartement) values ('DRH','Directiondes Ressources Humaines');
 
 alter table Personnel add column idDepartement char(5)  references Departement(idDepartement);

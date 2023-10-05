@@ -254,10 +254,18 @@ class UtilisateurController extends Controller
         $inscription = Inscription::create([
             'dateinscription' => now(),
             'idactiviteevent' => $req['idactiviteevent'],
-            'trigramme' => $trigramme
+            'trigramme' => $perso->trigramme,
+            'idgenre' => $perso->idgenre,
+            'iddepartement' => $perso->iddepartement,
         ]); 
         return redirect()->back();     
         
+    }
+    public function creerEquipe(){
+        $listeActiviteCollective=ActiviteEvent::with('Activite')->where('idtypeactivite','=','2')->get();
+        for ($i=0; $i <count($listeActiviteCollective) ; $i++) { 
+            $homme=Inscription::where('idgenre','=','1')->get();
+        }
     }
    
 }
