@@ -38,8 +38,9 @@
 </head>
 
 <body>
-    @extends('Admin.AccueilAdmin')
- <!-- Reports -->
+ @extends('Admin.AccueilAdmin')
+  @section('contenu')
+   <!-- Reports -->
  <div class="col-12">
     <div class="card">
 
@@ -120,7 +121,7 @@
 
     </div>
   </div><!-- End Reports -->
-    @section('contenu')
+  @endsection
     <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

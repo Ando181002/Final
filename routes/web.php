@@ -157,7 +157,7 @@ Route::GET('testEquipe', [UtilisateurController::class, 'testEquipe']);
 
 
 
-
+Route::GET('Statistique', [AdminController::class, 'Statistique']);
 Route::GET('testapi', [AdminController::class, 'callCodeIgniterTransfert']);
 Route::POST('ldap', [AdminController::class, 'ldap']);
 

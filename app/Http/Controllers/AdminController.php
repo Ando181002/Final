@@ -349,6 +349,9 @@ class AdminController extends Controller
         $url = url('FicheTournoi', ['idtournoi' => $idtournoi]);
         return redirect($url); 
     } 
+    public function Statistique(){
+        return view('Admin.Statistique');
+    }
     public function callCodeIgniterHistorique()
     {
         // Spécifiez l'URL de l'API CodeIgniter et l'endpoint

@@ -303,6 +303,11 @@
               <i class="bi bi-circle"></i><span>Tournoi</span>
             </a>
           </li>
+          <li>
+            <a href="{{url('Statistique');}}">
+              <i class="bi bi-circle"></i><span>Statistique</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Components Nav -->
       <li class="nav-item">
