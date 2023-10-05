@@ -66,41 +66,7 @@
                                     <td>{{$acte->Activite->nomactivite}}</td>
                                     @if ($statut=="participant")
                                     <td>
-                                      @if($estInscrit==0)
-                                          Vous êtes déja inscrit
-                                      @else
                                         <a href="minscrire?idactiviteevent={{$acte->idactiviteevent}}" type="button" class="btn btn-primary">M'inscrire</a>
-                                      @endif
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal{{$acte->idactiviteevent}}">
-                                            Inscrire ma famille
-                                          </button>
-                                          <div class="modal fade" id="basicModal{{$acte->idactiviteevent}}" tabindex="-1">
-                                            <div class="modal-dialog">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title">Inscription</h5>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form class="row g-3" style="text-align: left" method="post" action="inscriptionfamille">
-                                                        @csrf
-                                                          <input type="hidden" name="idactiviteevent"  value="{{$acte->idactiviteevent}}">
-                                                          <div class="col-12">
-                                                            <label for="inputNanme4" class="form-label">Nom</label>
-                                                            <select name="idfamille" class="form-control" >
-                                                              @foreach ($famille as $fam)
-                                                                <option value="{{$fam->idfamille}}">{{$fam->nomfamille}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                          </div>
-                                                        <div class="text-center">
-                                                          <button type="submit" class="btn btn-primary">Valider</button>
-                                                        </div>
-                                                      </form><!-- Vertical Form -->
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div><!-- End Basic Modal-->
                                     </td>  
                                     @endif
                                 </tr>

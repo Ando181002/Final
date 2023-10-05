@@ -14,10 +14,14 @@ class Personnel extends Model
     protected $table = 'personnel';
     protected $primaryKey='trigramme';
     public $incrementing = false;
-    protected $fillable = ['trigramme','nom','emailperso','mdpperso','telephone','idgenre','datenaissance'];
+    protected $fillable = ['trigramme','nom','emailperso','mdpperso','telephone','idgenre','datenaissance','iddepartement'];
 
     public function Genre()
     {
         return $this->belongsTo(Genre::class, 'idgenre');
+    }   
+    public function Departement()
+    {
+        return $this->belongsTo(Departement::class, 'iddepartement');
     }   
 }

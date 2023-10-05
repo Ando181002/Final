@@ -13,7 +13,7 @@ class Inscription extends Model
     public $timestamps=false;
     protected $table = 'inscription';
     protected $primaryKey='idinscription';
-    protected $fillable = ['dateinscription','idactiviteevent','trigramme','idfamille'];
+    protected $fillable = ['dateinscription','idactiviteevent','trigramme','idgenre','iddepartement'];
 
     public function ActiviteEvent()
     {
@@ -23,8 +23,12 @@ class Inscription extends Model
     {
         return $this->belongsTo(Personnem::class, 'trigramme');
     }
-    public function Famille()
+    public function Genre()
     {
-        return $this->belongsTo(Famille::class, 'idfamille');
+        return $this->belongsTo(Genre::class, 'idgenre');
+    }
+    public function Departement()
+    {
+        return $this->belongsTo(Departement::class, 'iddepartement');
     }
 }

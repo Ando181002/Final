@@ -244,15 +244,9 @@ class UtilisateurController extends Controller
         $perso=session()->get('personnel');
         $trigramme=$perso->trigramme;
         $statut="participant";
-        $testParticipation=Inscription::whereNull('idfamille')->where('trigramme','=',$trigramme)->first();
-        $estInscrit=1;
-        if(isset($testParticipation)){
-            $estInscrit=0;
-        }
         $evenement=Evenement::with('Lieu')->findOrFail($req['id']);
-        $famille=Famille::where('trigramme','=',$trigramme)->get();
         $activite=ActiviteEvent::with('Evenement')->with('Activite')->where('idevenement','=',$req['id'])->get();
-        return view('Utilisateur.DetailEvent',compact('estInscrit','evenement','activite','statut','famille'));
+        return view('Utilisateur.DetailEvent',compact('evenement','activite','statut'));
     }
     public function minscrire(Request $req){
         $perso=session()->get('personnel');
@@ -260,58 +254,10 @@ class UtilisateurController extends Controller
         $inscription = Inscription::create([
             'dateinscription' => now(),
             'idactiviteevent' => $req['idactiviteevent'],
-            'trigramme' => $trigramme,
-            'idfamille' => null
+            'trigramme' => $trigramme
         ]); 
         return redirect()->back();     
         
     }
-    public function inscriptionfamille(Request $req){
-        $perso=session()->get('personnel');
-        $trigramme=$perso->trigramme;
-        $participation=Inscription::where('trigramme','=',$trigramme)->where('idfamille','=',$req['idfamille'])->first();
-        if(isset($participation)){
-            echo "Déja inscrit";
-        }
-        else{
-            $inscription = Inscription::create([
-                'dateinscription' => now(),
-                'idactiviteevent' => $req['idactiviteevent'],
-                'trigramme' => $trigramme,
-                'idfamille' => $req['idfamille']
-            ]);
-            return redirect()->back(); 
-        }
-    }
-    public function testEquipe(){
-        //Invariables
-        $dureeTotalHeure=4;
-        $dureeTotalMinute=$dureeTotalHeure*60;
-        $nbrInscrit=151;
-        $nbrTerrain=4;
-
-        //Variables
-        $dureeMatch=30;
-        $nbrMatchPossible=($dureeTotalMinute/$dureeMatch)*$nbrTerrain;
-        $nbrJoueur_Equipe=7;
-        $nbrMatch=intval($nbrInscrit/($nbrJoueur_Equipe*2));
-        $reste=$nbrInscrit%($nbrJoueur_Equipe*2);
-        echo $reste;
-    }
-   /* public function creerEquipe($idevenement){
-        $activiteEvent=ActiviteEvent::where('idevenement','=',$idevenement)->get();
-        foreach ($activiteEvent as $acte) {
-            $nbrJoueur=$acte->nbjoueurparequipe;
-            $inscription=DB::select('select * from inscriptionactivite where idactiviteevent = ? order by idgenre,age desc', [$acte->idactiviteevent]);
-            for ($i=0; $i <$nbrJoueur ; $i++) { 
-                $nomEquipe="Equipe".$i+1;
-                $equipeactivite = EquipeActivite::create([
-                    'nomequipe' => 'nomEquipe',
-                    'idactiviteevent' => $acte->idactiviteevent,
-                    'idinscription' => $inscription[$i]->idinscription
-                ]);
-            }
-        }
-    }*/
-
+   
 }

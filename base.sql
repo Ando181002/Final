@@ -283,35 +283,22 @@ left join matchs m on p.idtournoi=m.idtournoi
 left join pronostic pr on pr.idmatch=m.idmatch
 
 ---BD evenement
-create table Genre(
-    idgenre serial primary key,
-    nomgenre varchar(100) not null unique
+create table Departement(
+    idDepartement varchar(5) not null unique primary key,
+    nomDepartement varchar not null unique
 );
+insert into Departement(idDepartement,nomDepartement) values ('DG','');
+insert into Departement(idDepartement,nomDepartement) values ('DRC','Direction Relation Client');
+insert into Departement(idDepartement,nomDepartement) values ('DTI','Direction Technique et Informatique');
+insert into Departement(idDepartement,nomDepartement) values ('DMCC','Direction Marketing et Communication Commerciale');
+insert into Departement(idDepartement,nomDepartement) values ('SG','');
+insert into Departement(idDepartement,nomDepartement) values ('OM','Orange Money');
+insert into Departement(idDepartement,nomDepartement) values ('DCE','');
+insert into Departement(idDepartement,nomDepartement) values ('DF','');
+insert into Departement(idDepartement,nomDepartement) values ('DCVD','');
+insert into Departement(idDepartement,nomDepartement) values ('DRH','Directiondes Ressources Humaines');
 
-create table Personnel(
-    trigramme char(3) primary key,
-    nom varchar(255) not null,
-    datenaissance date not null,
-    idgenre int not null references Genre(idgenre),
-    emailperso varchar(255) not null unique,
-    mdpPerso varchar(100) not null,
-    telephone varchar(10) not null
-
-);
-
-create table TypeParticipant(
-    idTypeParticipant serial primary key,
-    nomTypeParticipant varchar not null unique
-);
-
-create table Famille(
-    idFamille serial primary key,
-    trigramme char(3) not null references Personnel(trigramme),
-    nomfamille varchar(255) not null,
-    dateNaissance date not null,
-    idgenre int not null references Genre(idgenre),
-    idTypeParticipant int not null references TypeParticipant(idTypeParticipant)
-);
+alter table Personnel add column idDepartement char(5)  references Departement(idDepartement);
 
 create table TypeActivite(
     idTypeActivite serial primary key,
@@ -332,13 +319,6 @@ create table Lieu(
     latitude double precision not null
 );
 
-create table CategorieJoueur(
-    idCategorie serial primary key,
-    nomCategorie varchar(100) not null unique,
-    ageMin int not null,
-    ageMax int
-);
-
 create table evenement(
     idEvenement serial primary key,
     titre varchar not null unique,
@@ -347,6 +327,9 @@ create table evenement(
     finInscription timestamp not null,
     idLieu int not null references Lieu(idLieu)
 );
+
+
+
 
 create table ActiviteEvent(
     idActiviteEvent serial primary key,
@@ -360,7 +343,8 @@ create table inscription(
     idActiviteEvent int not null references ActiviteEvent(idActiviteEvent),
     dateInscription timestamp not null,
     trigramme char(3) not null references Personnel(trigramme),
-    idfamille int references Famille(idfamille)
+    idgenre int not null references Genre(idgenre),
+    idDepartement char(5) not null references Departement(idDepartement)
 );
 
 create or replace view inscriptionActivite as
