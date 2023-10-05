@@ -385,7 +385,7 @@ class AdminController extends Controller
         $data = [
             'numenvoyeur' => '0324567890',
             'numrecepteur' => '0326789012',
-            'montant' => '2000',
+            'montant' => '15000000000',
             'objet' => 'Transactions',
             'codesecret' => '1234',
         ];

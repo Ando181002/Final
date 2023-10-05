@@ -4,6 +4,7 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Client;
 use App\Models\Tournoi;
 use App\Models\Matchs;
 use App\Models\Evenement;
@@ -136,16 +137,52 @@ class UtilisateurController extends Controller
     }
     public function inscription(Request $req){
         $idtournoi=$req['idtournoi'];
+        $tournoi=Tournoi::find($idtournoi);
         $perso=session()->get('personnel');
-        $participant = Participant::create([
-            'trigramme' => $perso->trigramme,
-            'idtournoi' => $req['idtournoi'],
-            'idequipe1g' => $req['idequipe1g'],
-            'idequipe2g' => $req['idequipe2g'],
-            'reponsequestion' => $req['reponsequestion']
-        ]);
-        $url = url('Pronostiquer', ['idtournoi' => $idtournoi]);
-        return redirect($url);
+        $descri="Tournoi".$idtournoi."-".$perso->trigramme;
+          // Créez une instance de client Guzzle
+        $client = new Client();
+
+          // URL de l'API CodeIgniter pour la méthode "transfert"
+        $apiUrl = 'http://127.0.0.1/OrangeMoney/api/transfert';
+  
+          // Données à envoyer à l'API pour la méthode "transfert"
+        $data = [
+            'numenvoyeur' => $perso->telephone,
+            'numrecepteur' => '0321453421',
+            'montant' => $tournoi->frais,
+            'objet' => $descri,
+            'codesecret' => $req['codesecret'],
+        ];
+  
+        try {
+            // Effectuez une requête POST vers l'API CodeIgniter pour la méthode "transfert"
+            $response = $client->request('POST', $apiUrl, [
+                'form_params' => $data,
+            ]);
+            // Obtenez le contenu de la réponse (au format JSON)
+            $apiData = json_decode($response->getBody(), true);
+            if($apiData['status']=="success"){
+                $participant = Participant::create([
+                    'trigramme' => $perso->trigramme,
+                    'idtournoi' => $req['idtournoi'],
+                    'idequipe1g' => $req['idequipe1g'],
+                    'idequipe2g' => $req['idequipe2g'],
+                    'reponsequestion' => $req['reponsequestion']
+                ]);
+                $url = url('Pronostiquer', ['idtournoi' => $idtournoi]);
+                return redirect($url);
+            }
+            else{
+                $erreur=$apiData['data'];
+                $url = url('participerPronostic', ['idtournoi' => $idtournoi,'erreur' => $erreur]);
+                return redirect($url);
+            }
+        } catch (Exception $e) {
+            $erreur="Erreur de connexion. Veuillez réessayer plus tard";
+            $url = url('participerPronostic', ['idtournoi' => $idtournoi,'erreur' => $erreur]);
+            return redirect($url);
+        }
     }
     public function DetailPronostic(Request $req){
         $statut="participant";
