@@ -373,38 +373,6 @@ class AdminController extends Controller
     
     }   
 
-    public function callCodeIgniterTransfert(Request $req)
-    {
-        // Créez une instance de client Guzzle
-        $client = new Client();
-
-        // URL de l'API CodeIgniter pour la méthode "transfert"
-        $apiUrl = 'http://127.0.0.1/OrangeMoney/api/transfert';
-
-        // Données à envoyer à l'API pour la méthode "transfert"
-        $data = [
-            'numenvoyeur' => '0324567890',
-            'numrecepteur' => '0326789012',
-            'montant' => '15000000000',
-            'objet' => 'Transactions',
-            'codesecret' => '1234',
-        ];
-
-        try {
-            // Effectuez une requête POST vers l'API CodeIgniter pour la méthode "transfert"
-            $response = $client->request('POST', $apiUrl, [
-                'form_params' => $data,
-            ]);
-
-            // Obtenez le contenu de la réponse (au format JSON)
-            $apiData = json_decode($response->getBody(), true);
-
-            // Faites quelque chose avec les données reçues de l'API
-            return response()->json($apiData);
-        } catch (Exception $e) {
-            // Gérez les erreurs ici
-            return response()->json(['error' => 'Une erreur s\'est produite lors de l\'appel de l\'API CodeIgniter.']);
-        }
-    }
+   
 }
 

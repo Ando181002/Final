@@ -106,7 +106,7 @@ class UtilisateurController extends Controller
         $perso=session()->get('personnel');
         $route="UDetailPronostic";
         $statut="participant";
-        $participer=[];
+        $participer=[]; 
         if(isset($req['type']) && $req['type']==2){
             $query = DB::table('v_tournoi_participant');
         }
