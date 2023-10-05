@@ -79,7 +79,10 @@ create table ResultatMatch(
     score2 int not null
 );
 
-
+create table Genre(
+    idgenre serial primary key,
+    nomgenre varchar(100) not null unique
+); 
 create table Personnel(
     trigramme char(3) primary key,
     nom varchar(255) not null,
